@@ -599,11 +599,10 @@ abline(v=0, h=0)
 
 ### Non-Metric MDS  
 
-```{r include=FALSE}
+```{r}
 #non-metric mds
 
 con<-isoMDS(d, k=2)
-con
 
 x<-con$points[,1]; y<-con$points[,2]
 lim1<-c(-max(abs(x)), max(abs(x))); lim2<-c(-max(abs(y)), max(abs(y)))
@@ -611,24 +610,13 @@ lim1<-c(-max(abs(x)), max(abs(x))); lim2<-c(-max(abs(y)), max(abs(y)))
 plot(x,y, xlab="Dim1", ylab="Dim2", xlim=lim1, ylim=lim2)
 text(x,y,rownames(d), cex=0.8, pos=2)
 abline(v=0, h=0)
-
-
-
-sh <- Shepard(d[lower.tri(d)], con$points)
-
-plot(sh$x, sh$yf, pch = ".", xlab = "Dissimilarity", ylab = "Distance", 
-     xlim = range(sh$x), ylim = range(sh$x))
-lines(sh$x, sh$yf, type = "S")
-
-
-plot(sh$y, sh$yf, pch=".", xlab="FitDissimilarity", ylab="Distance", 
-     xlim=range(sh$y), ylim=range(sh$y))
-lines(sh$y, sh$yf, type="p")
 ```  
 
 ### 셰퍼드 & 상
 
 ```{r}
+sh <- Shepard(d[lower.tri(d)], con$points)
+
 par(mfrow=c(1,2))
 
 plot(sh$x, sh$yf, pch = ".", xlab = "Dissimilarity", ylab = "Distance", 
